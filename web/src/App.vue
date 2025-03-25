@@ -1,30 +1,43 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <div>
+    <div>{{ names }}</div>
+    <div>{{ translation }}</div>
+  </div>
   <router-view/>
 </template>
 
+<script>
+import { ref } from "vue";
+import $ from "jquery";
+export default {
+  name : 'App',
+  setup:() =>{
+    let names = ref('');
+    let translation = ref('');
+
+    $.ajax({
+      url: "http://localhost:3000/pk/getbotinfo/",
+      type: "GET",
+      success(resp){
+        names.value = resp.name,
+        translation.value = resp.translation
+      }
+    })
+    return {
+      names,
+      translation
+    }
+  }
+
+
+}
+
+</script>
+
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  body{
+    background-image: url("C:\Users\hp\Desktop\临时图片\u=2346598809,776133120&fm=253&fmt=auto&app=138&f=JPEG.jpeg");
+    background-size: cover;
+  }
 </style>
